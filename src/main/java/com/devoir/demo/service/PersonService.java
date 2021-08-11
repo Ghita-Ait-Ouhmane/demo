@@ -2,12 +2,13 @@ package com.devoir.demo.service;
 
 import com.devoir.demo.bo.PersonBO;
 import com.devoir.demo.dao.PersonDao;
+import com.devoir.demo.dto.PersonDTO;
+import com.devoir.demo.mapper.PersonMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,19 +17,33 @@ public class PersonService {
     //@Autowired
     private PersonDao personDao ;
 
+    //@Autowired
+    private final PersonMap personMapper;
+
     @Value("${fileInsert.path}")
     private String pathToFile ;
 
-    public PersonService(PersonDao personDao) {
+    public PersonService(PersonDao personDao, PersonMap personMapper) {
         this.personDao = personDao;
+        this.personMapper = personMapper;
     }
 
+    /*
+    public PersonService(PersonDao personDao) {
+        this.personDao = personDao;Q
+    }
+
+     */
+
     @Transactional
-    public PersonBO insertion(PersonBO person){
+    public PersonDTO insertion(PersonBO person){
         person.getCarList().forEach(car->car.setOwner(person));
-        saveToFile(person);
-        //malgrès l'except il a inséré ds la BD
-        return personDao.save(person);
+        PersonBO bo = personDao.save(person);
+        /* Manual Mapping
+        PersonMapper personMapper = new PersonMapper();
+        return personMapper.toDTO(bo);
+         */
+        return personMapper.personBOToDTO(bo);
     }
 
     public void saveToFile(PersonBO person) {

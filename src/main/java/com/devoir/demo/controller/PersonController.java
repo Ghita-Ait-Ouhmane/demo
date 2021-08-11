@@ -1,6 +1,7 @@
 package com.devoir.demo.controller;
 
 import com.devoir.demo.bo.PersonBO;
+import com.devoir.demo.dto.PersonDTO;
 import com.devoir.demo.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping(path = "/person")
-    public PersonBO insertPerson(@RequestBody PersonBO person){
+    public PersonDTO insertPerson(@RequestBody PersonBO person){
         return personService.insertion(person);
     }
 

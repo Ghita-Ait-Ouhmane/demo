@@ -1,30 +1,21 @@
-package com.devoir.demo.bo;
+package com.devoir.demo.dto;
 
+import com.devoir.demo.bo.PersonBO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity
-@Table(name="VOITURE")
-public class CarBO {
-    
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ID")
+public class CarDTO {
+
     private long id;
-    
-    @Column(name="COULEUR")
+
     private String color;
 
-    @Column(name="MARQUE")
     private String brand ;
 
-    @ManyToOne
-    @JoinColumn(name = "PERSONNE_ID", referencedColumnName = "ID")
-    @JsonIgnore
-    private PersonBO owner ;
 
-
-    @Column(name="PRINCIPALE")
     private boolean principal ;
 
     public boolean isPrincipal() {
@@ -36,6 +27,8 @@ public class CarBO {
     }
 
 
+
+    //private PersonBO owner ;
 
     public long getId() {
         return id;
@@ -61,6 +54,7 @@ public class CarBO {
         this.brand = brand;
     }
 
+    /*
     public PersonBO getOwner() {
         return owner;
     }
@@ -68,4 +62,6 @@ public class CarBO {
     public void setOwner(PersonBO owner) {
         this.owner = owner;
     }
+    */
+
 }

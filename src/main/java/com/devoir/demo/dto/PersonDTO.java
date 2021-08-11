@@ -1,30 +1,24 @@
-package com.devoir.demo.bo;
+package com.devoir.demo.dto;
 
-import javax.persistence.*;
+import com.devoir.demo.dto.CarDTO;
+
 import java.util.List;
 
-@Entity
-@Table(name="PERSONNE")
-public class PersonBO {
+public class PersonDTO {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
     private long id;
 
-    @Column(name="PRENOM")
     private String firstName;
 
-    @Column(name="NOM")
     private String lastName;
 
-    @OneToMany(mappedBy = "owner",cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private List<CarBO> carList ;
+    private List<CarDTO> carList ;
 
-    public List<CarBO> getCarList() {
+    public List<CarDTO> getCarList() {
         return carList;
     }
 
-    public void setCarList(List<CarBO> carList) {
+    public void setCarList(List<CarDTO> carList) {
         this.carList = carList;
     }
 
